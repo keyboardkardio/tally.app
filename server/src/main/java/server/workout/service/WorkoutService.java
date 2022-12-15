@@ -1,8 +1,9 @@
 package server.workout.service;
 
+import java.security.Principal;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import server.user.entity.User;
 import server.user.repository.UserRepository;
 import server.workout.dto.PostWorkoutDTO;
@@ -13,9 +14,6 @@ import server.workout.exception.UserNotOriginalAuthorException;
 import server.workout.repository.SetRepository;
 import server.workout.repository.WorkoutExerciseRepository;
 import server.workout.repository.WorkoutRepository;
-
-import java.security.Principal;
-import java.util.List;
 
 @Service
 public class WorkoutService {
@@ -57,11 +55,13 @@ public class WorkoutService {
 
     @Transactional
     public List<Workout> getAllWorkoutsForUser(Long userId) {
+
         return workoutRepository.findWorkoutsByUserId(userId);
     }
 
     @Transactional
     public Workout getWorkout(Long workoutId) {
+
         return workoutRepository.findWorkoutById(workoutId);
     }
 
@@ -82,7 +82,8 @@ public class WorkoutService {
     public void deleteWorkoutExercise(Principal principal, Long workoutExerciseId) {
         User user = userRepository.getUserByUsername(principal.getName());
 
-        WorkoutExercise workoutExerciseToDelete = workoutExerciseRepository.findWorkoutExerciseById(workoutExerciseId);
+        WorkoutExercise workoutExerciseToDelete =
+                workoutExerciseRepository.findWorkoutExerciseById(workoutExerciseId);
         Workout workout = workoutExerciseToDelete.getWorkout();
 
         if (user.getId() != workout.getUser().getId()) {

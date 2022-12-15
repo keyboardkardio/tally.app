@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
-
 import server.security.jwt.JwtAccessDeniedHandler;
 import server.security.jwt.JwtAuthenticationEntryPoint;
 import server.security.jwt.JwtSecurityConfig;

@@ -1,12 +1,11 @@
 package server.security;
 
+import java.util.Arrays;
+import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import server.user.entity.User;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 public class SpringSecurityUser implements UserDetails {
 

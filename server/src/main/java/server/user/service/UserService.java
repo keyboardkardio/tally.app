@@ -1,9 +1,8 @@
 package server.user.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.transaction.Transactional;
-
+import java.util.Optional;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import server.security.jwt.JwtFilter;
 import server.security.jwt.TokenProvider;
 import server.user.dto.UserLoginDTO;
@@ -23,8 +21,6 @@ import server.user.entity.User;
 import server.user.exception.UserAlreadyExistsException;
 import server.user.exception.UserDoesNotExistException;
 import server.user.repository.UserRepository;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
