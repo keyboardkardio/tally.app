@@ -1,3 +1,5 @@
 export function Home() {
-  return null;
+  return (
+    <h1>Home</h1>
+  );
 }

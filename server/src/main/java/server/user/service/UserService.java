@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,6 +20,8 @@ import server.security.jwt.TokenProvider;
 import server.user.dto.UserLoginDTO;
 import server.user.dto.UserRegistrationDTO;
 import server.user.entity.User;
+import server.user.exception.UserAlreadyExistsException;
+import server.user.exception.UserDoesNotExistException;
 import server.user.repository.UserRepository;
 
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class UserService {
 
         Optional<User> user = userRepository.findUserByUsername(newUserCredentials.username());
         if (user.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username is not available.");
+            throw new UserAlreadyExistsException();
         }
 
         User newUser = new User();
@@ -70,7 +71,7 @@ public class UserService {
 
         Optional<User> user = userRepository.findUserByUsername(userCredentials.username());
         if (!user.isPresent()) {
-            throw new UsernameNotFoundException("User does not exist.");
+            throw new UserDoesNotExistException();
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();

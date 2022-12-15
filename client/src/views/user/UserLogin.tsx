@@ -1,34 +1,27 @@
-import React from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Paper, Stack, TextField } from '@mui/material';
 
+const apiUrl: string = process.env.REACT_APP_API_BASE_URL as string;
+
 const loginSchema = yup.object({
-  username: yup.string()
-    .required('Please enter your username.')
-    .min(4, 'Usernames have a minimum length of four characters.')
-    .max(50, 'Username exceeded 50 character limit.'),
-  password: yup.string()
-    .required('Please enter your password to continue.')
-    .min(8, 'Passwords have a minimum length of eight characters.')
-    .max(32, 'Password exceeded the 32 character limit.'),
+  username: yup.string().required('Please enter your username.').min(4).max(50),
+  password: yup.string().required('Please enter your password to continue.').min(8).max(32)
 });
 
 export interface UserCredentials extends yup.InferType<typeof loginSchema> {
   token: string;
-  user: {
-    id: number;
-    username: string;
-  };
+  user: { id: number; username: string; };
 }
 
 export function UserLogin() {
   const navigate = useNavigate();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<UserCredentials>({
     resolver: yupResolver(loginSchema),
@@ -37,10 +30,13 @@ export function UserLogin() {
   const onSubmit = async (userInput: UserCredentials) => {
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:7000/api/auth/login', userInput);
+
+      const response = await axios.post(apiUrl + '/auth/login', userInput);
+
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      navigate('/');
+      localStorage.setItem('userId', JSON.stringify(response.data.userId));
+
+      navigate('/create');
     } catch (error: any) {
       console.log(error);
     }

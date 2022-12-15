@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { Button, Stack } from '@mui/material';
 import { WorkoutExerciseFormField } from './WorkoutExerciseFormField';
 
@@ -20,8 +21,15 @@ const defaultValues = {
 export function WorkoutExerciseForm() {
   const { control, register, handleSubmit, getValues, formState: { errors }, reset, setValue } = useForm<WorkoutExerciseFormValues>({ defaultValues });
 
-  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-  const onSubmit = (data: WorkoutExerciseFormValues) => axios.post('http://localhost:7000/api/workouts', data)
+  const navigate = useNavigate();
+  const onSubmit = async (data: WorkoutExerciseFormValues) => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+    const response = await axios.post('http://localhost:7000/api/workouts', data);
+    if (response.status === 202) {
+      reset(defaultValues);
+      navigate('/view-last-workout');
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
