@@ -1,6 +1,7 @@
 package server.workout.web;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class WorkoutController {
         workoutService.createWorkoutEntry(principal, workoutToSave);
     }
 
-    @GetMapping("/{userId}/workouts")
+    @GetMapping("/users/{userId}/workouts")
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Workout> getAllUserWorkouts(@PathVariable Long userId) {
         return workoutService.getAllWorkoutsForUser(userId);
@@ -41,5 +42,23 @@ public class WorkoutController {
     @ResponseStatus(HttpStatus.OK)
     public Workout getWorkoutById(@PathVariable Long workoutId) {
         return workoutService.getWorkout(workoutId);
+    }
+
+    @DeleteMapping("/workouts/{workoutId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteWorkout(Principal principal, @PathVariable Long workoutId) {
+        workoutService.deleteWorkout(principal, workoutId);
+    }
+
+    @DeleteMapping("/workouts/workout-exercises/{workoutExerciseId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteWorkoutExercise(Principal principal, @PathVariable Long workoutExerciseId) {
+        workoutService.deleteWorkoutExercise(principal, workoutExerciseId);
+    }
+
+    @DeleteMapping("/workouts/workout-exercises/sets/{setId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSet(Principal principal, @PathVariable Long setId) {
+        workoutService.deleteSet(principal, setId);
     }
 }
