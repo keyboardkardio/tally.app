@@ -10,4 +10,6 @@ import java.util.List;
 public interface SetRepository extends JpaRepository<Set, Long> {
 
     List<Set> findSetsByWorkoutExerciseId(Long workoutExerciseId);
+
+    Set findSetById(Long setId);
 }
