@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import server.user.dto.UserLoginDTO;
 import server.user.dto.UserRegistrationDTO;
+import server.user.exception.UserAlreadyExistsException;
 import server.user.service.UserService;
 
 @RestController
@@ -23,9 +24,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createNewUser(@Valid @RequestBody UserRegistrationDTO newUserCredentials) {
-        userService.registerNewUser(newUserCredentials);
+    public ResponseEntity createNewUser(@Valid @RequestBody UserRegistrationDTO newUserCredentials) {
+        try {
+            userService.registerNewUser(newUserCredentials);
+            return new ResponseEntity<String>("Account created.", HttpStatus.CREATED);
+        } catch (UserAlreadyExistsException e) {
+            return new ResponseEntity<String>("Username is not available. Please try another.", HttpStatus.CONFLICT);
+        }
     }
 
     @PostMapping("/login")
