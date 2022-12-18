@@ -1,14 +1,12 @@
 import { Control, useFieldArray, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { Button, Card, IconButton, Stack, TextField } from '@mui/material';
-import { Delete } from '@mui/icons-material';
-import { WorkoutExerciseFormValues } from './WorkoutExerciseForm';
 import { WorkoutExerciseSetField } from './WorkoutExerciseFormSetField';
+import { WorkoutExerciseFormValues } from 'src/types';
+import Delete from '@mui/icons-material/Delete';
 
-export function WorkoutExerciseFormField({ control, register, setValue, getValues }: {
-  control: Control<WorkoutExerciseFormValues>;
-  register: UseFormRegister<WorkoutExerciseFormValues>;
-  setValue: UseFormSetValue<WorkoutExerciseFormValues>;
-  getValues: UseFormGetValues<WorkoutExerciseFormValues>;
+export function WorkoutExerciseFormField({ control, register }: {
+  control: Control<WorkoutExerciseFormValues>; register: UseFormRegister<WorkoutExerciseFormValues>;
+  setValue: UseFormSetValue<WorkoutExerciseFormValues>; getValues: UseFormGetValues<WorkoutExerciseFormValues>;
 }) {
 
   const { fields, append, remove } = useFieldArray({ control, name: 'workoutExercises' });
@@ -36,6 +34,7 @@ export function WorkoutExerciseFormField({ control, register, setValue, getValue
               fullWidth
               size='large'
               variant='contained'
+              sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
             >
               Log Exercise
             </Button>
@@ -46,6 +45,7 @@ export function WorkoutExerciseFormField({ control, register, setValue, getValue
         fullWidth
         size='large'
         variant='contained'
+        sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
         onClick={() => {
           append({ exerciseName: '', sets: [{ reps: 0, weight: 0 }] });
         }}

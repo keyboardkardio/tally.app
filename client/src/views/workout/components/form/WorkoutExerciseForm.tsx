@@ -1,15 +1,9 @@
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Button, Stack } from '@mui/material';
 import { WorkoutExerciseFormField } from './WorkoutExerciseFormField';
-
-export interface WorkoutExerciseFormValues {
-  workoutExercises: {
-    exerciseName: string;
-    sets: { reps: number; weight: number; }[];
-  }[];
-}
+import { WorkoutExerciseFormValues } from 'src/types';
+import axios from 'axios';
 
 const defaultValues = {
   workoutExercises: [{
@@ -35,7 +29,14 @@ export function WorkoutExerciseForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <WorkoutExerciseFormField {...{ control, register, defaultValues, getValues, setValue, errors }} />
       <Stack spacing={2} sx={{ mt: '4rem' }}>
-        <Button fullWidth size='large' type='submit' variant='contained'>
+        <Button
+          fullWidth
+          size='large'
+          type='submit'
+          variant='contained'
+          color='primary'
+          sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
+        >
           Finish Workout
         </Button>
         <Button
@@ -43,6 +44,7 @@ export function WorkoutExerciseForm() {
           size='large'
           type='button'
           variant='contained'
+          sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
           onClick={() => reset(defaultValues)}
         >
           Reset Log
