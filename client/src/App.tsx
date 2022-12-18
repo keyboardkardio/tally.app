@@ -1,12 +1,23 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-
-import { Router } from './Router';
+import { Box, Container } from '@mui/material';
+import { Router } from 'src/Router';
+import { ThemeProvider } from 'src/ThemeProvider';
 
 export function App() {
   return (
-    <Router />
-  )
+    <ThemeProvider>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Container maxWidth='md'>
+          <Router />
+        </Container>
+      </Box>
+    </ThemeProvider>
+  );
 }
