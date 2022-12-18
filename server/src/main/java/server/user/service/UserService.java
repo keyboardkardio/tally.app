@@ -35,6 +35,12 @@ public class UserService {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
+    /**
+     * Creates a new user and saves their credentials to the database.
+     *
+     * @param newUserCredentials a data transfer object that contains the
+     *                           values of the registration form
+     */
     @Transactional
     public void registerNewUser(UserRegistrationDTO newUserCredentials) {
         if (!newUserCredentials.password().equals(newUserCredentials.passwordConfirmation())) {
@@ -56,6 +62,14 @@ public class UserService {
         userRepository.save(newUser);
     }
 
+    /**
+     * Checks the user's credentials and returns a JSON web token upon
+     * verification.
+     *
+     * @param userCredentials a data transfer object that contains the user's
+     *                        credentials
+     * @return                a JSON web token
+     */
     @Transactional
     public ResponseEntity<LoginResponse> loginUser(UserLoginDTO userCredentials) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userCredentials.username(), userCredentials.password());
@@ -78,6 +92,9 @@ public class UserService {
         return new ResponseEntity<>(new LoginResponse(jwt, currentUser.getId()), httpHeaders, HttpStatus.ACCEPTED);
     }
 
+    /**
+     * The object to include in the HTTP response body upon successful login.
+     */
     static class LoginResponse {
         private String token;
         private Long userId;
