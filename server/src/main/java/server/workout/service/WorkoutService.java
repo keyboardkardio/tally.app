@@ -72,7 +72,7 @@ public class WorkoutService {
     }
 
     /**
-     * Fetches a single workout with the specified `workoutId`
+     * Returns a single workout with the specified `workoutId`
      *
      * @param workoutId the id of a workout
      * @return          a single workout
@@ -81,6 +81,18 @@ public class WorkoutService {
     public Workout getWorkout(Long workoutId) {
 
         return workoutRepository.findWorkoutById(workoutId);
+    }
+
+    /**
+     * Returns the user's last logged workout
+     *
+     * @param userId
+     * @return
+     */
+    @Transactional
+    public Workout getLastWorkout(Long userId) {
+
+        return workoutRepository.findTopOneWorkoutsByUserIdOrderByIdDesc(userId);
     }
 
     /**
@@ -112,8 +124,7 @@ public class WorkoutService {
     public void deleteWorkoutExercise(Principal principal, Long workoutExerciseId) {
         User user = userRepository.getUserByUsername(principal.getName());
 
-        WorkoutExercise workoutExerciseToDelete =
-                workoutExerciseRepository.findWorkoutExerciseById(workoutExerciseId);
+        WorkoutExercise workoutExerciseToDelete = workoutExerciseRepository.findWorkoutExerciseById(workoutExerciseId);
         Workout workout = workoutExerciseToDelete.getWorkout();
 
         if (user.getId() != workout.getUser().getId()) {

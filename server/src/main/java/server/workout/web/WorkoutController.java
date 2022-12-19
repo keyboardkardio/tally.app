@@ -27,36 +27,49 @@ public class WorkoutController {
     @PostMapping("/workouts")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void createWorkoutEntry(Principal principal, @RequestBody PostWorkoutDTO workoutToSave) {
+
         workoutService.createWorkoutEntry(principal, workoutToSave);
     }
 
     @GetMapping("/users/{userId}/workouts")
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Workout> getAllUserWorkouts(@PathVariable Long userId) {
+
         return workoutService.getAllWorkoutsForUser(userId);
+    }
+
+    @GetMapping("/users/{userId}/workouts/last-workout")
+    @ResponseStatus(HttpStatus.OK)
+    public Workout getLastWorkoutForUser(@PathVariable Long userId) {
+
+        return workoutService.getLastWorkout(userId);
     }
 
     @GetMapping("/workouts/{workoutId}")
     @ResponseStatus(HttpStatus.OK)
     public Workout getWorkoutById(@PathVariable Long workoutId) {
+
         return workoutService.getWorkout(workoutId);
     }
 
     @DeleteMapping("/workouts/{workoutId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteWorkout(Principal principal, @PathVariable Long workoutId) {
+
         workoutService.deleteWorkout(principal, workoutId);
     }
 
     @DeleteMapping("/workouts/workout-exercises/{workoutExerciseId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteWorkoutExercise(Principal principal, @PathVariable Long workoutExerciseId) {
+
         workoutService.deleteWorkoutExercise(principal, workoutExerciseId);
     }
 
     @DeleteMapping("/workouts/workout-exercises/sets/{setId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSet(Principal principal, @PathVariable Long setId) {
+
         workoutService.deleteSet(principal, setId);
     }
 }
