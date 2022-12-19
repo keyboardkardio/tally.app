@@ -1,14 +1,18 @@
-import React from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-export function AppMenu() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+export default function AppMenu() {
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -31,7 +35,7 @@ export function AppMenu() {
           <Link to='/'>Home</Link>
         </MenuItem>
         <MenuItem onClick={handleCloseNavMenu}>
-          <Link to='/'>Workout Log</Link>
+          <Link to='/workout-log'>Workout Log</Link>
         </MenuItem>
         <MenuItem onClick={handleCloseNavMenu}>
           <Link to='/create'>New Workout</Link>

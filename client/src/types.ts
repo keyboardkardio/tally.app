@@ -12,6 +12,6 @@ export interface IWorkout {
 export interface WorkoutExerciseFormValues {
   workoutExercises: {
     exerciseName: string;
-    sets: { reps: number; weight: number; }[];
+    sets: { reps: number; weight: number }[];
   }[];
 }

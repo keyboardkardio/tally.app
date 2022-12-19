@@ -1,12 +1,18 @@
 import { Control, useFieldArray, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { Button, Card, IconButton, Stack, TextField } from '@mui/material';
-import { WorkoutExerciseSetField } from './WorkoutExerciseFormSetField';
-import { WorkoutExerciseFormValues } from 'src/types';
 import Delete from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import { WorkoutExerciseFormValues } from 'src/types';
+import WorkoutExerciseSetField from './WorkoutExerciseFormSetField';
 
-export function WorkoutExerciseFormField({ control, register }: {
-  control: Control<WorkoutExerciseFormValues>; register: UseFormRegister<WorkoutExerciseFormValues>;
-  setValue: UseFormSetValue<WorkoutExerciseFormValues>; getValues: UseFormGetValues<WorkoutExerciseFormValues>;
+export default function WorkoutExerciseFormField({ control, register }: {
+  control: Control<WorkoutExerciseFormValues>;
+  register: UseFormRegister<WorkoutExerciseFormValues>;
+  setValue: UseFormSetValue<WorkoutExerciseFormValues>;
+  getValues: UseFormGetValues<WorkoutExerciseFormValues>;
 }) {
 
   const { fields, append, remove } = useFieldArray({ control, name: 'workoutExercises' });
@@ -30,14 +36,8 @@ export function WorkoutExerciseFormField({ control, register }: {
               </Stack>
               <WorkoutExerciseSetField nestIndex={index} {...{ control, register }} />
             </Stack>
-            <Button
-              fullWidth
-              size='large'
-              variant='contained'
-              sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
-            >
-              Log Exercise
-            </Button>
+            {/* TODO: This button should save the workout exercise to app state */}
+            <Button fullWidth variant='contained' size='large'>Log Exercise</Button>
           </Card>
         );
       })}

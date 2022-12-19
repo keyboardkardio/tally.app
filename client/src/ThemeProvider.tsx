@@ -1,11 +1,11 @@
-import { CssBaseline } from '@mui/material';
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
 interface IProps {
   children: React.ReactNode;
 }
 
-export function ThemeProvider({ children }: IProps) {
+export default function ThemeProvider({ children }: IProps) {
   const theme = createTheme({
     palette: {
       primary: {

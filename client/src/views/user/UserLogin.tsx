@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { LoadingButton } from '@mui/lab';
-import { Box, Paper, Stack, TextField } from '@mui/material';
-import axios from 'axios';
+import { yupResolver } from '@hookform/resolvers/yup';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import * as yup from 'yup';
-
-const apiUrl: string = process.env.REACT_APP_API_BASE_URL as string;
+import api from 'src/api/api';
+import Title from 'src/components/Title';
 
 const loginSchema = yup.object({
   username: yup.string().required('Please enter your username.').min(4).max(50),
-  password: yup.string().required('Please enter your password to continue.').min(8).max(32)
+  password: yup.string().required('Please enter your password to continue.').min(8).max(32),
 });
 
 export interface UserCredentials extends yup.InferType<typeof loginSchema> {
@@ -19,7 +21,7 @@ export interface UserCredentials extends yup.InferType<typeof loginSchema> {
   user: { id: number; username: string; };
 }
 
-export function UserLogin() {
+export default function UserLogin() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -31,12 +33,13 @@ export function UserLogin() {
     try {
       setLoading(true);
 
-      const response = await axios.post(apiUrl + '/auth/login', userInput);
-
+      const response: any = await api.post('/auth/login', userInput);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', JSON.stringify(response.data.userId));
 
-      navigate('/create');
+      setLoading(false);
+
+      navigate('/');
     } catch (error: any) {
       console.log(error);
     }
@@ -44,6 +47,7 @@ export function UserLogin() {
 
   return (
     <>
+      <Title title='Sign In' />
       <Paper elevation={8} sx={{ p: '1rem' }} component='form' onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField

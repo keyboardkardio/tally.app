@@ -1,15 +1,12 @@
-import { Box, Container, Typography } from '@mui/material';
-import { LastWorkout } from 'src/views/home/components/LastWorkout';
+import Box from '@mui/material/Box';
+import Title from 'src/components/Title';
+import LastWorkout from 'src/views/home/components/LastWorkout';
 
-export function Home() {
+export default function Home() {
   return (
     <Box>
-      <Typography component='h1' variant='h1' textAlign='center'>
-        Last Workout
-      </Typography>
-      <Container sx={{ mt: '1rem' }}>
-        <LastWorkout />
-      </Container>
+      <Title title='Home' />
+      <LastWorkout />
     </Box>
   );
 }

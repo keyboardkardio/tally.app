@@ -1,15 +1,27 @@
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AccountCircleRounded from '@mui/icons-material/AccountCircleRounded';
-import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 
-export function UserAccountMenu() {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+export default function UserAccountMenu() {
+  const navigate = useNavigate();
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+
+    navigate('/');
   };
 
   return (

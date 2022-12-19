@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  CircularProgress,
-  Container,
-  Divider,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { IWorkout } from 'src/types';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CircularProgress from '@mui/material/CircularProgress';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import api from 'src/api/api';
+import { IWorkout } from 'src/types';
 
-export function LastWorkout() {
+export default function LastWorkout() {
   const [loading, setLoading] = useState(false);
   const [workout, setWorkout] = useState<IWorkout | null>(null);
 
@@ -21,9 +18,10 @@ export function LastWorkout() {
     const getWorkout = async () => {
       try {
         setLoading(true);
-        const response = await api.get<IWorkout>(`/workouts/6`);
-        // const response = await api.get<IWorkoutExercise[]>(`/users/${localStorage.getItem('userId')}/workouts`);
+
+        const response = await api.get<IWorkout>(`/users/${localStorage.getItem('userId')}/workouts/last-workout`);
         setWorkout(response.data);
+
         setLoading(false);
       } catch (error: any) {
         console.log(error);
@@ -34,11 +32,16 @@ export function LastWorkout() {
   }, []);
 
   return (
-    <Box>
-      <Card elevation={12} sx={{ maxHeight: '30rem', overflow: 'auto', p: '1rem' }}>
-        <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-          {loading && <CircularProgress />}
-        </Container>
+    <>
+      <Card elevation={12} sx={{ maxHeight: '50%', overflow: 'auto', p: '1rem' }}>
+        <Typography component='h2' variant='h2' textAlign='center'>
+          Last Workout
+        </Typography>
+        {loading && (
+          <Container sx={{ display: 'flex', justifyContent: 'center', p: '2rem' }}>
+            <CircularProgress />
+          </Container>
+        )}
         {workout?.workoutExercises.map((workoutExercise) => (
           <Stack key={workoutExercise.id} sx={{ p: '1rem' }}>
             <Divider sx={{ mb: '1rem' }}>
@@ -56,10 +59,10 @@ export function LastWorkout() {
         ))}
       </Card>
       <Container sx={{ mt: '2rem' }}>
-        <Button disabled={loading} fullWidth variant='contained' size='large'>
+        <Button fullWidth variant='contained'>
           Edit This Workout
         </Button>
       </Container>
-    </Box>
+    </>
   );
 }

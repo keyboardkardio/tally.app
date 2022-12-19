@@ -1,9 +1,12 @@
 import { Control, useFieldArray, UseFormRegister } from 'react-hook-form';
-import { Button, IconButton, Stack, TextField } from '@mui/material';
-import { WorkoutExerciseFormValues } from 'src/types';
 import Delete from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import { WorkoutExerciseFormValues } from 'src/types';
 
-export function WorkoutExerciseSetField({ nestIndex, control, register }: {
+export default function WorkoutExerciseSetField({ nestIndex, control, register }: {
   nestIndex: number;
   control: Control<WorkoutExerciseFormValues>;
   register: UseFormRegister<WorkoutExerciseFormValues>;
