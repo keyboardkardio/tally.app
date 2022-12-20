@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import Title from 'src/components/Title';
+import Title from 'src/components/common/Title';
 import LastWorkout from 'src/views/home/components/LastWorkout';
 
 export default function Home() {

@@ -1,10 +1,10 @@
 import { Control, useFieldArray, UseFormRegister } from 'react-hook-form';
 import Delete from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { WorkoutExerciseFormValues } from 'src/types';
+import PrimaryButton from 'src/components/button/PrimaryButton';
 
 export default function WorkoutExerciseSetField({ nestIndex, control, register }: {
   nestIndex: number;
@@ -42,15 +42,7 @@ export default function WorkoutExerciseSetField({ nestIndex, control, register }
           </Stack>
         );
       })}
-      <Button
-        fullWidth
-        type='button'
-        variant='contained'
-        sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
-        onClick={() => append({ reps: 0, weight: 0 })}
-      >
-        Add Set
-      </Button>
+      <PrimaryButton onClick={() => append({ reps: 0, weight: 0 })}>Add Set</PrimaryButton>
     </Stack>
   );
 }

@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import * as yup from 'yup';
 import api from 'src/api/api';
-import Title from 'src/components/Title';
+import Title from 'src/components/common/Title';
 
 const registrationSchema = yup.object({
   username: yup.string()
@@ -28,6 +29,7 @@ export interface RegistrationFormValues extends yup.InferType<typeof registratio
 
 export default function UserRegistration() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<RegistrationFormValues>({
     resolver: yupResolver(registrationSchema),
@@ -35,7 +37,11 @@ export default function UserRegistration() {
 
   const onSubmit = async (userInput: RegistrationFormValues) => {
     try {
+      setLoading(true);
+
       const response = await api.post('/auth/register', userInput);
+
+      setLoading(false);
 
       navigate('/login');
     } catch (error: any) {
@@ -73,9 +79,16 @@ export default function UserRegistration() {
           <Box sx={{ pt: '1rem', textAlign: 'center' }}>
             <Link to='/login'>Already have an account?</Link>
           </Box>
-          <Button fullWidth variant='contained' type='submit' onClick={handleSubmit(onSubmit)}>
+          <LoadingButton
+            fullWidth
+            variant='contained'
+            type='submit'
+            loading={loading}
+            loadingIndicator='Creating Account..'
+            sx={{ fontWeight: 600, letterSpacing: '0.1rem'}}
+          >
             Create Account
-          </Button>
+          </LoadingButton>
         </Stack>
       </Paper>
     </>

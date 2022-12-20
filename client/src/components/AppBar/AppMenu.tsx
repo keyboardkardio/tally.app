@@ -18,9 +18,9 @@ export default function AppMenu() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, display: 'flex' }}>
-      <IconButton size='large' color='inherit' onClick={handleOpenNavMenu}>
-        <MenuIcon />
+    <Box sx={{ display: 'flex', flexGrow: 1 }}>
+      <IconButton color='inherit' onClick={handleOpenNavMenu}>
+        <MenuIcon fontSize='large' />
       </IconButton>
       <Menu
         keepMounted

@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import * as yup from 'yup';
 import api from 'src/api/api';
-import Title from 'src/components/Title';
+import Title from 'src/components/common/Title';
 
 const loginSchema = yup.object({
   username: yup.string().required('Please enter your username.').min(4).max(50),
@@ -72,6 +72,7 @@ export default function UserLogin() {
             type='submit'
             loading={loading}
             loadingIndicator='Logging in..'
+            sx={{ fontWeight: 600, letterSpacing: '0.1rem'}}
           >
             Log In
           </LoadingButton>

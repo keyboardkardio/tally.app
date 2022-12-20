@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
@@ -9,8 +9,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import api from 'src/api/api';
 import { IWorkout } from 'src/types';
+import PrimaryButton from 'src/components/button/PrimaryButton';
 
 export default function LastWorkout() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [workout, setWorkout] = useState<IWorkout | null>(null);
 
@@ -33,7 +35,7 @@ export default function LastWorkout() {
 
   return (
     <>
-      <Card elevation={12} sx={{ maxHeight: '50%', overflow: 'auto', p: '1rem' }}>
+      <Card elevation={8} sx={{ maxHeight: '50%', overflow: 'auto', p: '1rem' }}>
         <Typography component='h2' variant='h2' textAlign='center'>
           Last Workout
         </Typography>
@@ -59,9 +61,9 @@ export default function LastWorkout() {
         ))}
       </Card>
       <Container sx={{ mt: '2rem' }}>
-        <Button fullWidth variant='contained'>
+        <PrimaryButton onClick={() => navigate('/edit-workout')}>
           Edit This Workout
-        </Button>
+        </PrimaryButton>
       </Container>
     </>
   );

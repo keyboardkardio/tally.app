@@ -1,10 +1,10 @@
 import { Control, useFieldArray, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import Delete from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import PrimaryButton from 'src/components/button/PrimaryButton';
 import { WorkoutExerciseFormValues } from 'src/types';
 import WorkoutExerciseSetField from './WorkoutExerciseFormSetField';
 
@@ -21,7 +21,7 @@ export default function WorkoutExerciseFormField({ control, register }: {
     <>
       {fields.map((item, index) => {
         return (
-          <Card key={item.id} sx={{ p: '1rem', mb: '2rem' }}>
+          <Card key={item.id} elevation={8} sx={{ p: '1rem', mb: '2rem' }}>
             <Stack spacing={2} sx={{ mb: '2rem' }}>
               <Stack spacing={1} direction='row'>
                 <TextField
@@ -37,21 +37,23 @@ export default function WorkoutExerciseFormField({ control, register }: {
               <WorkoutExerciseSetField nestIndex={index} {...{ control, register }} />
             </Stack>
             {/* TODO: This button should save the workout exercise to app state */}
-            <Button fullWidth variant='contained' size='large'>Log Exercise</Button>
+            <PrimaryButton
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            >
+              Log Exercise
+            </PrimaryButton>
           </Card>
         );
       })}
-      <Button
-        fullWidth
-        size='large'
-        variant='contained'
-        sx={{ fontWeight: '600', letterSpacing: '0.08rem' }}
+      <PrimaryButton
         onClick={() => {
           append({ exerciseName: '', sets: [{ reps: 0, weight: 0 }] });
         }}
       >
         Add Exercise
-      </Button>
+      </PrimaryButton>
     </>
   );
 }

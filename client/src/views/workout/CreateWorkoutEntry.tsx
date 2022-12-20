@@ -1,4 +1,5 @@
-import Title from 'src/components/Title';
+import Box from '@mui/material/Box';
+import Title from 'src/components/common/Title';
 import WorkoutExerciseForm from 'src/views/workout/components/form/WorkoutExerciseForm';
 
 export default function CreateWorkoutEntry() {

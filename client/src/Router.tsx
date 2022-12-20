@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppBar from 'src/components/AppBar/AppBar';
-import RequireAuth from 'src/components/RequireAuth';
+import RequireAuth from 'src/components/common/RequireAuth';
 import Home from 'src/views/home/Home';
 import UserLogin from 'src/views/user/UserLogin';
 import UserRegistration from 'src/views/user/UserRegistration';

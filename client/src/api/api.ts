@@ -5,6 +5,7 @@ const defaultAxiosConfiguration = {
 };
 
 const axiosInstance = axios.create(defaultAxiosConfiguration);
+axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 function api(axios: AxiosInstance) {
   return {
