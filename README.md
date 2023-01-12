@@ -1,5 +1,7 @@
 # Tally
 
+## Please visit the [Super Set](https://github.com/keyboardkardio/superset) repository for the redesigned application.
+
 ## Installation
 
 Clone this repository onto your computer.
